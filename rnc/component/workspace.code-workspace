@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": "../.."
+		},
+		{
+			"path": "../../../../../../Applications/XAMPP/xamppfiles/htdocs/WebService01"
+		},
+		{
+			"path": "../../../../../../Applications/XAMPP/xamppfiles/htdocs/DemoLive"
+		},
+		{
+			"path": "../../../../../../Applications/XAMPP/xamppfiles/htdocs/DeMoJWT"
+		}
+	],
+	"settings": {}
+}
