@@ -31,9 +31,9 @@ const ProductDetail = ({route}) => {
         if (result.length === 0) {
           myArray = [...myArray, {quantity: 1, data: product}];
         } else {
-          console.log('result', result);
           const res = myArray.findIndex(item => item.data.id === product.id);
           myArray[res].quantity = +result?.[0].quantity + 1;
+          console.log('result', myArray[res].quantity);
         }
       }
       await AsyncStorage.setItem('my_cart', JSON.stringify(myArray));
@@ -41,7 +41,6 @@ const ProductDetail = ({route}) => {
       console.log('err: ', error);
     }
   };
-
   const {name, color, material, price, description, images} =
     route.params.product;
   const {

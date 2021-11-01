@@ -56,6 +56,30 @@ const CartView = () => {
       console.log('err: ', err);
     }
   };
+  const incrQuantity = async (dataProduct, quantity) => {
+    try {
+      const temp = [...cart];
+      const res = temp.findIndex(item => item.data.id === dataProduct.id);
+      temp[res].quantity = quantity + 1;
+
+      await AsyncStorage.setItem('my_cart', JSON.stringify(temp));
+      getCart();
+    } catch (err) {
+      console.log('err: ', err);
+    }
+  };
+  const decrQuantity = async (dataProduct, quantity) => {
+    try {
+      const temp = [...cart];
+      const res = temp.findIndex(item => item.data.id === dataProduct.id);
+      temp[res].quantity = quantity - 1;
+
+      await AsyncStorage.setItem('my_cart', JSON.stringify(temp));
+      getCart();
+    } catch (err) {
+      console.log('err: ', err);
+    }
+  };
 
   return (
     <SafeAreaView style={wrapper}>
@@ -74,7 +98,7 @@ const CartView = () => {
               />
               <View style={[mainRight]}>
                 <View style={styles.viewName}>
-                  <Text style={txtName}>{product?.name.toUpperCase()}</Text>
+                  <Text style={txtName}>{product?.name?.toUpperCase()}</Text>
                   <TouchableOpacity
                     onPress={() => deleteProductFromCart(product.id)}>
                     <Text style={styles.txtDelete}>X</Text>
@@ -85,11 +109,13 @@ const CartView = () => {
                 </View>
                 <View style={productController}>
                   <View style={numberOfProduct}>
-                    <TouchableOpacity>
+                    <TouchableOpacity
+                      onPress={() => incrQuantity(product, quantity)}>
                       <Text>+</Text>
                     </TouchableOpacity>
                     <Text>{quantity}</Text>
-                    <TouchableOpacity>
+                    <TouchableOpacity
+                      onPress={() => decrQuantity(product, quantity)}>
                       <Text>-</Text>
                     </TouchableOpacity>
                   </View>
