@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createDrawerNavigator} from '@react-navigation/drawer';
-import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
+import {View, Text, StyleSheet, Image} from 'react-native';
 import Authentication from './Authentication/Authentication';
 import ChangeInfo from './ChangeInfo/ChangeInfo';
 import Main from './Main.js/Main';
@@ -15,11 +15,14 @@ import SignOut from './SingOut/SignOut';
 import ListProduct from '../component/Main.js/Shop/ListProduct/ListProduct';
 import ProductDetail from '../component/Main.js/Shop/ProductDetail/ProductDetail';
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
 const StackNavigator = () => {
   return (
     <Stack.Navigator
+      initialRouteName="Main"
       screenOptions={{
         headerShown: false,
       }}>
@@ -32,6 +35,20 @@ const StackNavigator = () => {
 };
 const Tab = createBottomTabNavigator();
 const TabBar = () => {
+  const [cart, setCart] = React.useState([]);
+
+  useEffect(() => {
+    getCart();
+  }, []);
+
+  const getCart = async () => {
+    try {
+      const myArray = await AsyncStorage.getItem('my_cart');
+      setCart(JSON.parse(myArray));
+    } catch (error) {
+      console.log('err: ', error);
+    }
+  };
   return (
     <Tab.Navigator
       screenOptions={{
@@ -61,7 +78,7 @@ const TabBar = () => {
         name="Cart"
         component={Cart}
         options={{
-          tabBarBadge: 3,
+          tabBarBadge: cart?.length,
           tabBarIcon: ({focused}) => (
             <View>
               <Image
@@ -122,7 +139,6 @@ const App = () => {
   return (
     <NavigationContainer>
       <Drawer.Navigator
-        initialRouteName="Main"
         screenOptions={{
           headerShown: false,
           drawerStyle: {
@@ -144,11 +160,8 @@ const App = () => {
                     style={styles.profile}
                   />
                 </View>
-                <View style={{flex: 1, marginLeft: 60}}>
-                  <Text
-                    style={{fontSize: 20, color: '#fff', fontFamily: 'Avenir'}}>
-                    Le Trong Hieu
-                  </Text>
+                <View>
+                  <Text />
                 </View>
               </View>
             ),

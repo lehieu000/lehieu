@@ -8,11 +8,9 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import Sp1 from '../../../../../source/images-master/temp/sp1.jpeg';
-import Sp2 from '../../../../../source/images-master/temp/sp2.jpeg';
-import Sp3 from '../../../../../source/images-master/temp/sp3.jpeg';
-import Sp4 from '../../../../../source/images-master/temp/sp4.jpeg';
-const TopProduct = () => {
+const url = 'http://localhost/api/images/product/';
+
+const TopProduct = ({data}) => {
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
@@ -20,53 +18,19 @@ const TopProduct = () => {
         <Text style={styles.title}>TOP PRODUCT</Text>
       </View>
       <View style={styles.body}>
-        <TouchableOpacity
-          style={styles.productContainer}
-          elevation={5}
-          onPress={() => navigation.navigate('ProductDetail')}>
-          <Image source={Sp1} style={styles.productImage} />
-          <Text style={styles.produceName}>PRODUCT NAME</Text>
-          <Text style={styles.producePrice}>400$</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.productContainer}
-          onPress={() => navigation.navigate('ProductDetail')}>
-          <Image source={Sp2} style={styles.productImage} />
-          <Text style={styles.produceName}>PRODUCT NAME</Text>
-          <Text style={styles.producePrice}>300$</Text>
-        </TouchableOpacity>
-        <View style={{height: 10, width}} />
-        <TouchableOpacity
-          style={styles.productContainer}
-          onPress={() => navigation.navigate('ProductDetail')}>
-          <Image source={Sp3} style={styles.productImage} />
-          <Text style={styles.produceName}>PRODUCT NAME</Text>
-          <Text style={styles.producePrice}>400$</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.productContainer}
-          onPress={() => navigation.navigate('ProductDetail')}>
-          <Image source={Sp4} style={styles.productImage} />
-          <Text style={styles.produceName}>PRODUCT NAME</Text>
-          <Text style={styles.producePrice}>300$</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.productContainer}
-          onPress={() => navigation.navigate('ProductDetail')}>
-          <Image
-            source={require('../../../../../source/images-master/temp/sp5.jpeg')}
-            style={styles.productImage}
-          />
-          <Text style={styles.produceName}>PRODUCT NAME</Text>
-          <Text style={styles.producePrice}>300$</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.productContainer}
-          onPress={() => navigation.navigate('ProductDetail')}>
-          <Image source={Sp1} style={styles.productImage} />
-          <Text style={styles.produceName}>PRODUCT NAME</Text>
-          <Text style={styles.producePrice}>400$</Text>
-        </TouchableOpacity>
+        {data?.product?.map(e => (
+          <TouchableOpacity
+            style={styles.productContainer}
+            onPress={() => navigation.navigate('ProductDetail', {product: e})}
+            key={e?.id}>
+            <Image
+              source={{uri: `${url}${e?.images[0]}`}}
+              style={styles.productImage}
+            />
+            <Text style={styles.produceName}>{e?.name.toUpperCase()}</Text>
+            <Text style={styles.producePrice}>{e?.price}$</Text>
+          </TouchableOpacity>
+        ))}
       </View>
     </View>
   );

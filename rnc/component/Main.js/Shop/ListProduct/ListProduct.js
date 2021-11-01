@@ -11,9 +11,9 @@ import {
 import Header from '../Header';
 import {useNavigation} from '@react-navigation/native';
 
-const ListProduct = () => {
+const ListProduct = ({route}) => {
   const navigation = useNavigation();
-
+  console.log('_route: ', route.params);
   return (
     <SafeAreaView style={styles.body}>
       <View>
@@ -29,7 +29,7 @@ const ListProduct = () => {
               />
             </TouchableOpacity>
             <Text style={styles.titleStyle}>Party Dress</Text>
-            <View style={{width: 30}} />
+            <View style={styles.viewStyle} />
           </View>
           <View style={styles.productContainer}>
             <Image
@@ -215,5 +215,6 @@ const styles = StyleSheet.create({
     width: 16,
     borderRadius: 8,
   },
+  viewStyle: {height: 30},
 });
 export default ListProduct;

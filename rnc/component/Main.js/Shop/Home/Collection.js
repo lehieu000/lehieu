@@ -4,7 +4,7 @@ const {height, width} = Dimensions.get('window');
 const Collection = () => {
   return (
     <View style={styles.wrapper}>
-      <View style={{flex: 1}}>
+      <View style={styles.viewStyle}>
         <Text style={styles.textStyle}>SPRING COLLECTION</Text>
       </View>
       <View style={styles.titleStyle}>
@@ -33,4 +33,5 @@ const styles = StyleSheet.create({
   textStyle: {fontSize: 20, color: '#AFAEAF', paddingTop: 10},
   titleStyle: {flex: 4},
   imageStyle: {height: imageHeight, width: imageWidth},
+  viewStyle: {flex: 1},
 });

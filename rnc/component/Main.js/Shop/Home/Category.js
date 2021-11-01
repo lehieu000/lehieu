@@ -8,53 +8,36 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import Swiper from 'react-native-swiper';
-import LittleIcon from '../../../../../source/images-master/temp/little.jpg';
-import MaxiIcon from '../../../../../source/images-master/temp/maxi.jpg';
-import PartyIcon from '../../../../../source/images-master/temp/party.jpg';
 import {useNavigation} from '@react-navigation/native';
 
 const {height, width} = Dimensions.get('window');
-const Category = () => {
+const url = 'http://localhost/api/images/type/';
+const Category = ({data}) => {
   const navigation = useNavigation();
+  const {wrapper, textStyle, imageStyle, cateTitle, viewStyle, viewSwiper} =
+    styles;
   return (
-    <View style={styles.wrapper}>
-      <View style={{flex: 1, justifyContent: 'center'}}>
-        <Text style={styles.textStyle}>LIST OF CATEGORY</Text>
+    <View style={wrapper}>
+      <View style={viewStyle}>
+        <Text style={textStyle}>LIST OF CATEGORY</Text>
       </View>
-      <View style={{flex: 4}}>
+      <View style={viewSwiper}>
         <Swiper width={imageWidth}>
-          <TouchableOpacity onPress={() => navigation.navigate('ListProduct')}>
-            <ImageBackground source={LittleIcon} style={styles.imageStyle}>
-              <Text style={styles.cateTitle}>Maxi Dress</Text>
-            </ImageBackground>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('ListProduct')}>
-            <ImageBackground
-              source={MaxiIcon}
-              resizeMode="cover"
-              style={styles.imageStyle}>
-              <Text style={styles.cateTitle}>Maxi Dress</Text>
-            </ImageBackground>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('ListProduct')}>
-            <ImageBackground source={PartyIcon} style={styles.imageStyle}>
-              <Text style={styles.cateTitle}>Maxi Dress</Text>
-            </ImageBackground>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('ListProduct')}>
-            <ImageBackground
-              source={require('../../../../../source/images-master/temp/midi.jpg')}
-              style={styles.imageStyle}>
-              <Text style={styles.cateTitle}>Maxi Dress</Text>
-            </ImageBackground>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('ListProduct')}>
-            <ImageBackground
-              source={require('../../../../../source/images-master/temp/fit.jpg')}
-              style={styles.imageStyle}>
-              <Text style={styles.cateTitle}>Maxi Dress</Text>
-            </ImageBackground>
-          </TouchableOpacity>
+          {data?.type?.map(e => (
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate('ListProduct', {product: data?.product})
+              }
+              key={e?.id}>
+              <ImageBackground
+                source={{
+                  uri: `${url}${e?.image}`,
+                }}
+                style={imageStyle}>
+                <Text style={cateTitle}>{e?.name}</Text>
+              </ImageBackground>
+            </TouchableOpacity>
+          ))}
         </Swiper>
       </View>
     </View>
@@ -86,4 +69,6 @@ const styles = StyleSheet.create({
     fontFamily: 'Avenir',
     color: '#9A9A9A',
   },
+  viewStyle: {flex: 1, justifyContent: 'center'},
+  viewSwiper: {flex: 4},
 });

@@ -31,9 +31,12 @@ const Search = () => {
     txtShowDetail,
     showDetailContainer,
     wrapper,
+    viewStyle,
+    viewColor,
+    txtView,
   } = styles;
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: '#34B089'}}>
+    <SafeAreaView style={viewStyle}>
       <View>
         <Header />
       </View>
@@ -47,17 +50,9 @@ const Search = () => {
             <Text style={txtName}>{toTitleCase('black dress')}</Text>
             <Text style={txtPrice}>100$</Text>
             <Text style={txtMaterial}>Material Fur</Text>
-            <View style={{flexDirection: 'row'}}>
+            <View style={viewColor}>
               <Text style={txtColor}>Color white</Text>
-              <View
-                style={{
-                  height: 15,
-                  width: 15,
-                  backgroundColor: 'white',
-                  borderRadius: 15,
-                  marginLeft: 10,
-                }}
-              />
+              <View style={txtView} />
             </View>
             <TouchableOpacity style={showDetailContainer}>
               <Text style={txtShowDetail}>SHOW DETAILS</Text>
@@ -73,19 +68,11 @@ const Search = () => {
             <Text style={txtName}>{toTitleCase('black dress')}</Text>
             <Text style={txtPrice}>100$</Text>
             <Text style={txtMaterial}>Material Fur</Text>
-            <View style={{flexDirection: 'row'}}>
+            <View style={viewColor}>
               <Text style={txtColor}>Color white</Text>
-              <View style={{flexDirection: 'row'}}>
+              <View style={viewColor}>
                 <Text style={txtColor}>Color white</Text>
-                <View
-                  style={{
-                    height: 15,
-                    width: 15,
-                    backgroundColor: 'white',
-                    borderRadius: 15,
-                    marginLeft: 10,
-                  }}
-                />
+                <View style={txtView} />
               </View>
             </View>
             <TouchableOpacity style={showDetailContainer}>
@@ -175,6 +162,15 @@ const styles = StyleSheet.create({
     position: 'absolute',
     alignSelf: 'flex-end',
     marginTop: 100,
+  },
+  viewStyle: {flex: 1, backgroundColor: '#34B089'},
+  viewColor: {flexDirection: 'row'},
+  txtView: {
+    height: 15,
+    width: 15,
+    backgroundColor: 'white',
+    borderRadius: 15,
+    marginLeft: 10,
   },
 });
 
