@@ -80,7 +80,8 @@ const CartView = () => {
       console.log('err: ', err);
     }
   };
-
+  const arrTotal = cart?.map(e => e.data.price * e.quantity);
+  const total = arrTotal.length ? arrTotal.reduce((a, b) => a + b) : 0;
   return (
     <SafeAreaView style={wrapper}>
       <View>
@@ -129,7 +130,7 @@ const CartView = () => {
         })}
       </ScrollView>
       <TouchableOpacity style={checkoutButton}>
-        <Text style={checkoutTitle}>TOTAL {1000}$ CHECKOUT NOW</Text>
+        <Text style={checkoutTitle}>TOTAL {total}$ CHECKOUT NOW</Text>
       </TouchableOpacity>
     </SafeAreaView>
   );
