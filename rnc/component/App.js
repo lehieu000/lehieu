@@ -160,8 +160,8 @@ const App = () => {
                     style={styles.profile}
                   />
                 </View>
-                <View>
-                  <Text />
+                <View style={styles.viewName}>
+                  <Text style={styles.textName}>Le Trong Hieu</Text>
                 </View>
               </View>
             ),
@@ -243,5 +243,14 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   btnText: {fontSize: 20, color: '#34B089'},
+  viewName: {
+    marginLeft: 60,
+    marginBottom: 40,
+  },
+  textName: {
+    fontSize: 20,
+    fontFamily: 'Avenir',
+    color: 'white',
+  },
 });
 export default App;
