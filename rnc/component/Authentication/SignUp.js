@@ -5,19 +5,51 @@ import {
   TouchableOpacity,
   StyleSheet,
   TextInput,
+  Alert,
 } from 'react-native';
 import register from '../api/register';
-const SignUp = () => {
+const SignUp = ({setNameScreen}) => {
   const {warper, inputStyle, bigBottom, bottomText} = styles;
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rePassword, setRePassword] = useState('');
+  const removeEmail = () => setEmail({email: ''});
   const registerUse = () => {
     register(email, name, password).then(res => {
-      console.log('res: ', res);
+      if (res === 'THANH_CONG') {
+        onSuccess();
+        setNameScreen().then();
+      } else {
+        onFail();
+      }
     });
   };
+  const onSuccess = () => {
+    Alert.alert(
+      'Notice',
+      'Sign Up Successfully',
+
+      [
+        {
+          text: 'Ok',
+
+          onPress: () => setNameScreen('SIGN_IN'),
+        },
+      ],
+      {cancelable: false},
+    );
+  };
+  const onFail = () => {
+    Alert.alert(
+      'Notice',
+      'Email has been used other',
+
+      [{text: 'Ok', onPress: () => removeEmail()}],
+      {cancelable: false},
+    );
+  };
+
   return (
     <View style={warper}>
       <TextInput

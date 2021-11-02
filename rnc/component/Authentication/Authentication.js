@@ -14,6 +14,7 @@ const Authentication = ({navigation}) => {
     navigation.goBack();
     navigation.openDrawer();
   };
+
   const [nameScreen, setNameScreen] = useState('SIGN_IN');
 
   return (
@@ -31,7 +32,11 @@ const Authentication = ({navigation}) => {
           style={styles.iconStyle}
         />
       </View>
-      {nameScreen === 'SIGN_IN' ? <SignIn /> : <SignUp />}
+      {nameScreen === 'SIGN_IN' ? (
+        <SignIn />
+      ) : (
+        <SignUp setNameScreen={setNameScreen} />
+      )}
       <View style={styles.controlStyle}>
         <TouchableOpacity
           style={styles.sigInStyle}

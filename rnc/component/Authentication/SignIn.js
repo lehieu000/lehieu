@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   Text,
   View,
@@ -6,13 +6,32 @@ import {
   StyleSheet,
   TextInput,
 } from 'react-native';
+import signIn from '../api/signIn';
 const SignIn = () => {
   const {warper, inputStyle, bigBottom, bottomText} = styles;
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const onSignIn = () => {
+    signIn(email, password)
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
+  };
   return (
     <View style={warper}>
-      <TextInput style={inputStyle} placeholder="Enter your email" />
-      <TextInput style={inputStyle} placeholder="Enter your Password" />
-      <TouchableOpacity style={bigBottom}>
+      <TextInput
+        style={inputStyle}
+        placeholder="Enter your email"
+        value={email}
+        onChangeText={text => setEmail(text)}
+      />
+      <TextInput
+        style={inputStyle}
+        placeholder="Enter your Password"
+        value={password}
+        secureTextEntry
+        onChangeText={text => setPassword(text)}
+      />
+      <TouchableOpacity style={bigBottom} onPress={onSignIn()}>
         <Text style={bottomText}>SIGN IN NOW</Text>
       </TouchableOpacity>
     </View>
